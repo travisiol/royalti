@@ -34,12 +34,23 @@ Both are drawn in the browser rather than shipped as images, which is what makes
 the brand a string instead of a folder of PNGs.
 
 **The wordmark** ([`Balloon.tsx`](src/components/Balloon.tsx)) is foil-balloon
-lettering built from Baloo 2 at weight 800, stacked `text-shadow`s for the
-extrusion, a gradient sheen clipped to the glyphs, and the `#puff` SVG filter —
-`feSpecularLighting` over a blurred alpha for the highlight a balloon catches
-from a window, plus an offset inner shade for the welded seam. See
-[`PuffFilter.tsx`](src/components/PuffFilter.tsx). The single-letter version is
-the logo in the nav, the footer and the welcome card.
+lettering built from Baloo 2 at weight 800, fattened with a same-colour text
+stroke so the limbs swell and the counters close up, then lit by the `#puff`
+filter in [`PuffFilter.tsx`](src/components/PuffFilter.tsx). That filter blurs
+the glyph's alpha into a height field and runs three lights over it: a diffuse
+pass that rolls the tube away at its edges, a tight specular streak along the
+top left, and a low warm bounce off the ground — plus an eroded silhouette
+darkened to read as the weld between two sheets of foil. Blur radii are in user
+units, so there are three tunings of it (`#puff`, `#puff-md`, `#puff-sm`) for
+the hero, the hero on mobile, and the logo. The single-letter version is the
+logo in the nav, the footer and the welcome card.
+
+> **Using a rendered wordmark instead.** A 3D render will always beat an SVG
+> filter running on live text — the site this design comes from ships a PNG for
+> exactly that reason. Drop yours in `public/brand/` and name it in `brandArt`
+> in [`src/lib/site.ts`](src/lib/site.ts) (`hero` for the wordmark, ~1600px wide
+> transparent PNG; `mark` for the square single-letter logo, ~512px). The drawn
+> version stays as the fallback, and still renders the 404 page's wordmark.
 
 **The asset tiles** ([`Tile.tsx`](src/components/Tile.tsx)) are the glossy 3D
 squares drifting around the hero: one SVG each, lit from the top left, with a

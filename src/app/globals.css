@@ -561,41 +561,34 @@
   font-family: var(--font-balloon), "Baloo 2", "Arial Rounded MT Bold", sans-serif;
   font-weight: 800;
   font-size: clamp(72px, 13vw, 168px);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: #c4ff2a;
-  text-shadow: 0 2px 0 #9fd21a, 0 5px 0 #86b40c, 0 9px 0 #6f9608;
-  filter: url(#puff) drop-shadow(0 26px 30px #18426059);
+  line-height: 1.06;
+  /* letters crowd together like a balloon bouquet — but stop short of merging */
+  letter-spacing: -0.015em;
+  /* the base sits deliberately deep; the lighting is what brings it up to lime */
+  color: #a4d40c;
+  /* the stroke is the inflation: it fattens every limb and shrinks the
+     counters, which is what separates a balloon from bold type */
+  -webkit-text-stroke: 0.062em #a4d40c;
+  paint-order: stroke fill;
+  filter: url(#puff) drop-shadow(0 30px 34px #18426052);
   animation: balloon-buoy 9s ease-in-out infinite;
+  will-change: transform;
   user-select: none;
 }
 
-/* the glossy sheen, clipped to the letterforms */
-.balloon::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  color: transparent;
-  text-shadow: none;
-  filter: none;
-  background: linear-gradient(
-    180deg,
-    #ffffffd9,
-    #ffffff66 18%,
-    #ffffff00 46%,
-    #ffffff00 78%,
-    #ffffff40
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  pointer-events: none;
+@media (max-width: 640px) {
+  .balloon {
+    filter: url(#puff-md) drop-shadow(0 18px 22px #18426052);
+  }
 }
 
 .balloon-mark {
   font-size: inherit;
   line-height: 1;
+  letter-spacing: 0;
+  -webkit-text-stroke: 0.05em #a4d40c;
   animation: none;
-  filter: url(#puff) drop-shadow(0 6px 10px #18426040);
+  filter: url(#puff-sm) drop-shadow(0 6px 10px #18426040);
 }
 
 /* ---------------------------------------------------------------------------

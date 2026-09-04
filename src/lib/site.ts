@@ -37,6 +37,22 @@ export const site = {
   apiBase: process.env.NEXT_PUBLIC_ROYALTI_API ?? "",
 } as const;
 
+/**
+ * Rendered brand art, if there is any.
+ *
+ * The CSS balloon in `<Balloon />` is drawn live, which is what makes the name
+ * a string — but a real 3D render will always out-shine an SVG filter running
+ * on live text. Drop one in `public/brand/` and name it here to use it instead;
+ * leave these empty and the drawn version stands.
+ *
+ *   hero — the full wordmark, transparent PNG, ~1600px wide
+ *   mark — just the first letter, square, transparent PNG, ~512px
+ */
+export const brandArt: { hero: string; mark: string } = {
+  hero: "",
+  mark: "",
+};
+
 export const nav = [
   { href: "/", label: "explore" },
   { href: "/coins", label: "coins" },
