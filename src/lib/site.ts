@@ -11,8 +11,8 @@ export const site = {
   ticker: "ROYALTI",
   url: process.env.NEXT_PUBLIC_ROYALTI_URL ?? "https://royalti.fun",
   domain: "royalti.fun",
-  xHandle: "@RoyaltiOnRH",
-  xUrl: "https://x.com/RoyaltiOnRH",
+  xHandle: "@royalti_fun",
+  xUrl: "https://x.com/royalti_fun",
 
   tagline: "redirect eth, usdg or stocks to any @username.",
   description:

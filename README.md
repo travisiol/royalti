@@ -88,12 +88,10 @@ is explicit about it:
    badge disappear on their own.
 4. `NEXT_PUBLIC_ROYALTI_URL` — the canonical origin. It feeds og tags and every
    curl example in `/docs`.
-5. **The X handle** `@RoyaltiOnRH` in `site.ts` is invented. Register it or
-   change it.
-6. **The legal pages are boilerplate.** `/terms` and `/privacy` are structured
+5. **The legal pages are boilerplate.** `/terms` and `/privacy` are structured
    and specific to this product — including a clause on tagging accounts you
    don't control — but they have not been near a lawyer.
-7. The launch fee (`launchFeeEth`) and tax ceiling (`maxCreatorTaxPct`) in
+6. The launch fee (`launchFeeEth`) and tax ceiling (`maxCreatorTaxPct`) in
    `site.ts` are quoted to users on the create page. They must match the
    deployed contract.
 
