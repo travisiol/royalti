@@ -47,10 +47,15 @@ logo in the nav, the footer and the welcome card.
 
 > **Using a rendered wordmark instead.** A 3D render will always beat an SVG
 > filter running on live text — the site this design comes from ships a PNG for
-> exactly that reason. Drop yours in `public/brand/` and name it in `brandArt`
-> in [`src/lib/site.ts`](src/lib/site.ts) (`hero` for the wordmark, ~1600px wide
-> transparent PNG; `mark` for the square single-letter logo, ~512px). The drawn
-> version stays as the fallback, and still renders the 404 page's wordmark.
+> exactly that reason. Save yours as **`public/brand/hero.png`** (or `.webp` /
+> `.svg`) and it is used on the next render; no configuration, delete the file
+> and the drawn balloon comes back. Transparent background, roughly 1600px
+> wide. The 404 page keeps the drawn version either way — its wordmark isn't
+> the brand.
+>
+> The logo can't do the same trick: it renders inside client components, which
+> have no filesystem. Point `brandArt.mark` in [`src/lib/site.ts`](src/lib/site.ts)
+> at a square PNG (~512px, just the first letter) to swap that one.
 
 **The asset tiles** ([`Tile.tsx`](src/components/Tile.tsx)) are the glossy 3D
 squares drifting around the hero: one SVG each, lit from the top left, with a

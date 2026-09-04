@@ -1,17 +1,42 @@
 /* eslint-disable @next/next/no-img-element */
-import { brandArt, site } from "@/lib/site";
+import fs from "node:fs";
+import path from "node:path";
+import { site } from "@/lib/site";
 
 /**
- * The hero wordmark. Drawn, not photographed — the name is a string, so
- * renaming the site renames the balloon. Set `brandArt.hero` to swap in a
- * rendered PNG instead; the drawn version stays the fallback and still serves
- * anything that isn't the wordmark itself (the 404, for one).
+ * A rendered wordmark wins if there is one.
+ *
+ * Checked by presence rather than configuration: drop the file in
+ * public/brand/ and it is used, delete it and the drawn balloon comes back.
+ * This is a server component, so the check costs a stat at render time — in
+ * dev that means the moment the file lands, and at build time in production.
+ */
+const CANDIDATES = ["brand/hero.png", "brand/hero.webp", "brand/hero.svg"];
+
+function renderedWordmark(): string | null {
+  for (const rel of CANDIDATES) {
+    try {
+      if (fs.existsSync(path.join(process.cwd(), "public", rel))) return `/${rel}`;
+    } catch {
+      // unreadable public dir — fall through to the drawn version
+    }
+  }
+  return null;
+}
+
+/**
+ * The hero wordmark. Drawn by default — the name is a string, so renaming the
+ * site renames the balloon — and replaced by public/brand/hero.png the moment
+ * that file exists. Anything that isn't the wordmark itself (the 404, for one)
+ * always uses the drawn version.
  */
 export function Balloon({ text = site.wordmark }: { text?: string }) {
-  if (brandArt.hero && text === site.wordmark) {
+  const rendered = text === site.wordmark ? renderedWordmark() : null;
+
+  if (rendered) {
     return (
       <img
-        src={brandArt.hero}
+        src={rendered}
         alt={site.wordmark}
         className="w-full max-w-[720px] h-auto select-none [filter:drop-shadow(0_28px_40px_#18426040)]"
       />
@@ -19,32 +44,4 @@ export function Balloon({ text = site.wordmark }: { text?: string }) {
   }
 
   return <span className="balloon">{text}</span>;
-}
-
-/**
- * The single-letter version used as the logo. `size` is the rendered box in
- * px; the glyph is sized to fill it.
- */
-export function BalloonMark({ size = 44, className = "" }: { size?: number; className?: string }) {
-  return (
-    <span
-      className={`inline-grid place-items-center shrink-0 select-none ${className}`}
-      style={{ width: size, height: size }}
-      aria-hidden="true"
-    >
-      {brandArt.mark ? (
-        <img
-          src={brandArt.mark}
-          alt=""
-          width={size}
-          height={size}
-          className="w-full h-full object-contain [filter:drop-shadow(0_6px_10px_#18426040)]"
-        />
-      ) : (
-        <span className="balloon balloon-mark" style={{ fontSize: size * 1.24 }}>
-          {site.mark}
-        </span>
-      )}
-    </span>
-  );
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { footerNav, site } from "@/lib/site";
-import { BalloonMark } from "./Balloon";
+import { BalloonMark } from "./BalloonMark";
 import { XIcon } from "./icons";
 
 export function Footer() {

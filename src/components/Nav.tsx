@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, site } from "@/lib/site";
-import { BalloonMark } from "./Balloon";
+import { BalloonMark } from "./BalloonMark";
 import { LoginButton } from "./LoginButton";
 import { MenuIcon, XIcon } from "./icons";
 

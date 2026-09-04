@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { site } from "@/lib/site";
-import { BalloonMark } from "./Balloon";
+import { BalloonMark } from "./BalloonMark";
 
 const KEY = "royalti:welcomed";
 

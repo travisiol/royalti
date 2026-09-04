@@ -38,18 +38,20 @@ export const site = {
 } as const;
 
 /**
- * Rendered brand art, if there is any.
+ * Rendered brand art.
  *
- * The CSS balloon in `<Balloon />` is drawn live, which is what makes the name
- * a string — but a real 3D render will always out-shine an SVG filter running
- * on live text. Drop one in `public/brand/` and name it here to use it instead;
- * leave these empty and the drawn version stands.
+ * The balloon is drawn live in CSS, which is what makes the name a string —
+ * but a 3D render will always out-shine an SVG filter running on live text.
  *
- *   hero — the full wordmark, transparent PNG, ~1600px wide
- *   mark — just the first letter, square, transparent PNG, ~512px
+ * The **hero wordmark needs nothing here**: `<Balloon />` looks for
+ * `public/brand/hero.png` (or .webp / .svg) on every render and uses it the
+ * moment it exists.
+ *
+ * The **logo** can't do that — it renders inside client components, which have
+ * no filesystem — so point `mark` at a square PNG in `public/brand/` to swap
+ * it. Leave it empty and the drawn `r` stands.
  */
-export const brandArt: { hero: string; mark: string } = {
-  hero: "",
+export const brandArt: { mark: string } = {
   mark: "",
 };
 
