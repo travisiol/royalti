@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#d9ff5c"/>
+      <stop offset="45%" stop-color="#c4ff2a"/>
+      <stop offset="100%" stop-color="#86b40c"/>
+    </linearGradient>
+    <linearGradient id="s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75"/>
+      <stop offset="70%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#5aaee7"/>
+  <!-- an inflated lowercase r: stem plus shoulder, both fully rounded -->
+  <g fill="url(#g)" stroke="#6f9608" stroke-width="1.5">
+    <rect x="16" y="20" width="12" height="28" rx="6"/>
+    <path d="M28 32c0-6 4-11 10-11 4 0 7 2 8 5 1.6 3-.6 6.4-3.6 6.4-2.4 0-3.8-1.4-4.8-2.6-1.6-1.8-4.4-1.2-5.6.8-.8 1.4-2 1.6-3 1.6-.6 0-1-.6-1-1.2z"/>
+  </g>
+  <rect x="18" y="22" width="8" height="10" rx="4" fill="url(#s)"/>
+</svg>
