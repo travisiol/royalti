@@ -9,12 +9,12 @@ export type Asset = {
   symbol: string;
   name: string;
   color: string;
-  /** crypto assets get a drawn glyph instead of a monogram */
-  glyph?: "eth" | "btc" | "usd";
+  /** the two currencies get a drawn symbol rather than a monogram */
+  glyph?: "btc" | "usd";
 };
 
 export const assets: Asset[] = [
-  { symbol: "ETH", name: "ether", color: "#627eea", glyph: "eth" },
+  { symbol: "ETH", name: "ether", color: "#627eea" },
   { symbol: "USDG", name: "global dollar", color: "#2e9e5b", glyph: "usd" },
   { symbol: "cbBTC", name: "coinbase wrapped btc", color: "#f7931a", glyph: "btc" },
   { symbol: "HOOD", name: "robinhood markets", color: "#00c805" },

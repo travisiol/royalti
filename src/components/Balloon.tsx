@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { site } from "@/lib/site";
+import { BalloonCanvas } from "./BalloonCanvas";
 
 /**
  * A rendered wordmark wins if there is one.
@@ -43,5 +44,5 @@ export function Balloon({ text = site.wordmark }: { text?: string }) {
     );
   }
 
-  return <span className="balloon">{text}</span>;
+  return <BalloonCanvas text={text} />;
 }

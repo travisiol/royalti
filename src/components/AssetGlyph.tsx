@@ -1,14 +1,13 @@
 import { getAsset } from "@/lib/assets";
+import { BRAND_ICON_BOX, brandIcons } from "@/lib/brand-icons";
 
 /**
  * The mark we draw inside an asset chip or tile.
  *
- * Crypto assets get their protocol glyph; equities get a monogram in the
- * company's colour. We draw our own rather than shipping other companies'
- * logo files — the tile is ours, the ticker is just a fact.
- *
- * Everything is authored in a 0 0 100 100 box so both the 18px chip and the
- * 150px hero tile can reuse it.
+ * A ticker with a real company logo gets it; the rest get a monogram in the
+ * company's colour, and the two currencies get their own glyph. Everything is
+ * authored in a 0 0 100 100 box so the 18px chip and the 150px hero tile can
+ * share it.
  */
 export function AssetGlyph({
   symbol,
@@ -21,48 +20,32 @@ export function AssetGlyph({
   compact?: boolean;
 }) {
   const asset = getAsset(symbol);
+  const brand = brandIcons[asset.symbol];
 
-  if (asset.glyph === "eth") {
+  if (brand) {
+    // 24px artwork, scaled to fill 64 of the 100 units and centred
+    const s = 64 / BRAND_ICON_BOX;
+    const o = BRAND_ICON_BOX / 2;
     return (
-      <g fill={color}>
-        <path d="M50 14 30 51l20 12 20-12z" opacity="0.9" />
-        <path d="M50 14 30 51l20-9z" opacity="0.62" />
-        <path d="M50 68 30 56l20 30 20-30z" opacity="0.9" />
-        <path d="M50 68 30 56l20 12z" opacity="0.62" />
+      <g transform={`translate(50 50) scale(${s}) translate(${-o} ${-o})`}>
+        <path d={brand} fill={color} />
       </g>
     );
   }
 
-  if (asset.glyph === "btc") {
+  if (asset.glyph === "usd" || asset.glyph === "btc") {
     return (
       <text
         x="50"
         y="50"
         fill={color}
-        fontSize="58"
+        fontSize={asset.glyph === "btc" ? 58 : 56}
         fontWeight={800}
         textAnchor="middle"
         dominantBaseline="central"
         fontFamily="var(--font-sans), Montserrat, system-ui, sans-serif"
       >
-        ₿
-      </text>
-    );
-  }
-
-  if (asset.glyph === "usd") {
-    return (
-      <text
-        x="50"
-        y="50"
-        fill={color}
-        fontSize="56"
-        fontWeight={800}
-        textAnchor="middle"
-        dominantBaseline="central"
-        fontFamily="var(--font-sans), Montserrat, system-ui, sans-serif"
-      >
-        $
+        {asset.glyph === "btc" ? "₿" : "$"}
       </text>
     );
   }

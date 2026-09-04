@@ -16,8 +16,8 @@ const heroTiles = [
   { symbol: "AAPL", cls: "left-[1%] top-[50%] hidden lg:block", rot: 10, dur: 9, delay: -3, blur: 1.2, size: 96 },
   { symbol: "GOOGL", cls: "right-[1%] top-[48%] hidden lg:block", rot: -9, dur: 6, delay: -5, blur: 1.5, size: 88 },
   { symbol: "META", cls: "left-[26%] bottom-[2%] hidden md:block", rot: 4, dur: 8.5, delay: -6, blur: 2, size: 76 },
-  { symbol: "AMZN", cls: "left-[22%] top-[3%] hidden md:block", rot: -4, dur: 7.8, delay: -1.5, blur: 1.8, size: 80 },
-  { symbol: "GME", cls: "right-[28%] bottom-[4%] hidden md:block", rot: 6, dur: 8.2, delay: -3.5, blur: 2.2, size: 72 },
+  { symbol: "COIN", cls: "left-[22%] top-[3%] hidden md:block", rot: -4, dur: 7.8, delay: -1.5, blur: 1.8, size: 80 },
+  { symbol: "AMD", cls: "right-[28%] bottom-[4%] hidden md:block", rot: 6, dur: 8.2, delay: -3.5, blur: 2.2, size: 72 },
 ];
 
 const steps = [
