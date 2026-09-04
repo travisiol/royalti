@@ -33,17 +33,28 @@ and mirrored in [`tailwind.config.ts`](tailwind.config.ts).
 Both are drawn in the browser rather than shipped as images, which is what makes
 the brand a string instead of a folder of PNGs.
 
-**The wordmark** ([`Balloon.tsx`](src/components/Balloon.tsx)) is foil-balloon
-lettering built from Baloo 2 at weight 800, fattened with a same-colour text
-stroke so the limbs swell and the counters close up, then lit by the `#puff`
-filter in [`PuffFilter.tsx`](src/components/PuffFilter.tsx). That filter blurs
-the glyph's alpha into a height field and runs three lights over it: a diffuse
-pass that rolls the tube away at its edges, a tight specular streak along the
-top left, and a low warm bounce off the ground — plus an eroded silhouette
-darkened to read as the weld between two sheets of foil. Blur radii are in user
-units, so there are three tunings of it (`#puff`, `#puff-md`, `#puff-sm`) for
-the hero, the hero on mobile, and the logo. The single-letter version is the
-logo in the nav, the footer and the welcome card.
+**The wordmark** is inflated for real, in [`src/lib/balloon.ts`](src/lib/balloon.ts).
+An SVG filter can't get there — using a blurred alpha as a height field is why
+the first attempt read as gel; a Gaussian is soft everywhere, and a balloon is
+a tube with a circular cross-section and a hard weld at its silhouette. So the
+renderer takes the exact euclidean distance from every pixel to the edge of its
+glyph, turns that distance into a circular profile, and shades it with
+Blinn-Phong: a key light, a low warm bounce, a tight glint and a broad sheen,
+with the last sliver before the outline darkened into a seam. Each letter is
+lit on its own and painted left to right with a contact shadow, so overlaps
+read as balloons resting against each other rather than one merged blob, and
+they line up on a shared baseline rather than their bounding boxes.
+
+That is a few hundred milliseconds of arithmetic for an image that never
+changes, so [`BalloonCanvas.tsx`](src/components/BalloonCanvas.tsx) renders one
+letter per task — never blocking a frame, with the CSS balloon showing
+meanwhile — and keeps the result as a ~60KB WebP data URL in `localStorage`.
+Bump the cache key when the renderer's output changes.
+
+The CSS balloon that covers the gap (and draws the single-letter logo in the
+nav, footer and welcome card) is Baloo 2 at weight 800, fattened with a
+same-colour text stroke and lit by the `#puff` SVG filter in
+[`PuffFilter.tsx`](src/components/PuffFilter.tsx).
 
 > **Using a rendered wordmark instead.** A 3D render will always beat an SVG
 > filter running on live text — the site this design comes from ships a PNG for
@@ -59,10 +70,16 @@ logo in the nav, the footer and the welcome card.
 
 **The asset tiles** ([`Tile.tsx`](src/components/Tile.tsx)) are the glossy 3D
 squares drifting around the hero: one SVG each, lit from the top left, with a
-hard gloss across the upper third and the mark sunk into the face. We draw our
-own marks rather than shipping other companies' logo files — adding a ticker is
-a line in [`src/lib/assets.ts`](src/lib/assets.ts), not a trip through a 3D
-renderer.
+hard gloss across the upper third and the mark sunk into the face. Adding a
+ticker is a line in [`src/lib/assets.ts`](src/lib/assets.ts), not a trip
+through a 3D renderer.
+
+The marks come from `simple-icons`, mapped ticker → path in
+[`brand-icons.ts`](src/lib/brand-icons.ts). Amazon, GameStop and Microsoft were
+withdrawn from that set on trademark request, so tickers with no icon fall back
+to a drawn monogram. Only the paths are taken, never the icon's own colour: the
+tile palette is picked so the hero row reads as a set, and Robinhood's official
+yellow-green in particular would vanish against our accent lime.
 
 ---
 
